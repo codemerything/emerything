@@ -3,34 +3,36 @@ import { Badge } from "@/components/ui/badge"
 import Image from "next/image"
 import Link from "next/link"
 
-const recentWritings = [
-  {
-    title: "The Art of Minimal Design",
-    date: "December 3, 2024",
-    excerpt: "A self-guaranteeing promise does not require you to trust anyone. You can verify it yourself.",
-    slug: "art-of-minimal-design",
-  },
-  {
-    title: "Building Scalable React Applications",
-    date: "November 28, 2024",
-    excerpt: "Best practices for structuring large React codebases for maintainability and performance.",
-    slug: "building-scalable-react-applications",
-  },
-  {
-    title: "The Future of Web Development",
-    date: "November 15, 2024",
-    excerpt: "Exploring emerging technologies and their potential impact on how we build for the web.",
-    slug: "future-of-web-development",
-  },
-]
+import { fetchSubstackArticles } from "@/lib/fetchSubstack"
+import { getSpotifyTrack } from "@/lib/spotify"
+import { getRecentMovie } from "@/lib/tmdb"
+import { getMovieQuote } from "@/lib/movieQuotes"
+
+async function getRecentWritings() {
+  const articles = await fetchSubstackArticles()
+  return articles.slice(0, 3).map(article => ({
+    title: article.title,
+    date: article.date,
+    excerpt: "", // Substack RSS feed doesn't include excerpts
+    slug: article.guid || article.link
+  }))
+}
+
+async function getCurrentlyConsuming() {
+  const [track, movie] = await Promise.all([
+    getSpotifyTrack(),
+    getRecentMovie()
+  ]);
+  return { track, movie };
+}
 
 const recentProjects = [
   {
-    title: "E-commerce Platform",
+    title: "Stunner Rave ",
     description: "Full-stack Next.js application with Stripe integration",
     image: "/placeholder.svg?height=200&width=300",
-    tags: ["Next.js", "TypeScript", "Stripe"],
-    slug: "ecommerce-platform",
+    tags: ["Next.js", "JavaScript", "Paystack", "Tailwind"],
+    slug: "stunner-rave",
   },
   {
     title: "Task Management App",
@@ -48,77 +50,59 @@ const recentProjects = [
   },
 ]
 
-const currentlyConsuming = [
-  {
-    type: "book",
-    icon: BookOpen,
-    title: "Atomic Habits",
-    author: "James Clear",
-    status: "Reading",
-  },
-  {
-    type: "music",
-    icon: Music,
-    title: "Blonde",
-    author: "Frank Ocean",
-    status: "On repeat",
-  },
-  {
-    type: "movie",
-    icon: Film,
-    title: "Dune: Part Two",
-    author: "Denis Villeneuve",
-    status: "Recently watched",
-  },
-  {
-    type: "book",
-    icon: BookOpen,
-    title: "The Design of Everyday Things",
-    author: "Don Norman",
-    status: "Next up",
-  },
-]
+export default async function Portfolio() {
+  const [recentWritings, consumingData, movieQuote] = await Promise.all([
+    getRecentWritings(),
+    getCurrentlyConsuming(),
+    getMovieQuote()
+  ]);
 
-export default function Portfolio() {
+  const { track: spotifyTrack, movie: recentMovie } = consumingData;
+
+  const currentlyConsuming = [
+    spotifyTrack && {
+      type: "music",
+      icon: Music,
+      title: spotifyTrack.title,
+      author: spotifyTrack.artist,
+      status: spotifyTrack.isCurrentlyPlaying ? "Currently playing" : "Recently played",
+      albumImage: spotifyTrack.albumImage,
+      url: spotifyTrack.url,
+    },
+    recentMovie && {
+      type: "movie",
+      icon: Film,
+      title: recentMovie.title,
+      author: recentMovie.director,
+      status: "Recently watched",
+      posterImage: recentMovie.posterPath,
+      releaseDate: recentMovie.releaseDate,
+    },
+    {
+      type: "book",
+      icon: BookOpen,
+      title: "Atomic Habits",
+      author: "James Clear",
+      status: "Reading",
+    },
+    {
+      type: "book",
+      icon: BookOpen,
+      title: "The Design of Everyday Things",
+      author: "Don Norman",
+      status: "Next up",
+    },
+  ].filter(Boolean)
+
   return (
     <div>
       {/* Hero Section */}
       <section className="max-w-4xl mx-auto px-6 py-12">
         <div className="space-y-6">
-          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl leading-relaxed">
+          <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl leading-relaxed italic">
             I'm someone who loves mixing different influences, genres and styles to create unique, innovative work. I
             enjoy pushing boundaries and exploring new ways to express myself without limitations.
           </p>
-        </div>
-      </section>
-
-      {/* Recent Writing Section */}
-      <section className="max-w-4xl mx-auto px-6 py-12 border-t border-gray-100 dark:border-gray-800">
-        <div className="space-y-6">
-          <div className="flex items-center justify-between">
-            <h3 className="text-2xl font-semibold text-gray-900 dark:text-gray-100">Recent Writing</h3>
-            <Link
-              href="/writing"
-              className="text-red-500 dark:text-red-400 hover:underline flex items-center gap-1 text-sm"
-            >
-              View all <ArrowRight className="w-3 h-3" />
-            </Link>
-          </div>
-          <div className="space-y-6">
-            {recentWritings.map((post, index) => (
-              <article key={index} className="group">
-                <Link href={`/writing/${post.slug}`} className="block">
-                  <div className="space-y-2">
-                    <h4 className="font-semibold text-gray-900 dark:text-gray-100 group-hover:text-red-500 dark:group-hover:text-red-400 transition-colors">
-                      {post.title}
-                    </h4>
-                    <div className="text-sm text-gray-500 dark:text-gray-400">{post.date}</div>
-                    <p className="text-gray-600 dark:text-gray-300 text-sm">{post.excerpt}</p>
-                  </div>
-                </Link>
-              </article>
-            ))}
-          </div>
         </div>
       </section>
 
@@ -129,7 +113,7 @@ export default function Portfolio() {
             <h3 className="text-2xl font-semibold text-gray-900 dark:text-gray-100">Recent Projects</h3>
             <Link
               href="/projects"
-              className="text-red-500 dark:text-red-400 hover:underline flex items-center gap-1 text-sm"
+              className="text-gray-500 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-400 hover:underline flex items-center gap-1 text-sm"
             >
               View all <ArrowRight className="w-3 h-3" />
             </Link>
@@ -178,26 +162,73 @@ export default function Portfolio() {
         </div>
       </section>
 
+      {/* Recent Writing Section */}
+      <section className="max-w-4xl mx-auto px-6   py-6 border-t border-gray-100 dark:border-gray-800">
+        <div className="space-y-6">
+          <div className="flex items-center justify-between">
+            <h3 className="text-2xl font-semibold text-gray-900 dark:text-gray-100">Recent Writing</h3>
+            <Link
+              href="/writing"
+              className="text-gray-600 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-400 hover:underline flex items-center gap-1 text-sm"
+            >
+              View all <ArrowRight className="w-3 h-3" />
+            </Link>
+          </div>
+          <div className="space-y-3">
+            {recentWritings.map((post, index) => (
+              <div key={index} className="flex items-start gap-6">
+                <time className="text-sm text-gray-500 dark:text-gray-400 font-mono min-w-[80px]">
+                  {new Date(post.date).toISOString().slice(0, 10)}
+                </time>
+                <Link href={`${post.slug}`} className="block">
+                  <h4 className="font-semibold text-gray-900 dark:text-gray-400 group-hover:text-red-500 dark:group-hover:text-red-400 transition-colors">
+                    {post.title}
+                  </h4>
+                </Link>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+
+
       {/* Currently Consuming Section */}
       <section className="max-w-4xl mx-auto px-6 py-12 border-t border-gray-100 dark:border-gray-800">
         <div className="space-y-6">
           <h3 className="text-2xl font-semibold text-gray-900 dark:text-gray-100">Currently Consuming</h3>
           <div className="grid md:grid-cols-2 gap-4">
-            {currentlyConsuming.map((item, index) => (
-              <div
-                key={index}
-                className="flex items-start gap-4 p-4 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-900/50 transition-colors"
-              >
-                <div className="p-2 bg-red-50 dark:bg-red-900/20 rounded-lg">
-                  <item.icon className="w-5 h-5 text-red-500 dark:text-red-400" />
+            {currentlyConsuming.map((item, index) => {
+              if (!item) return null;
+              return (
+                <div
+                  key={index}
+                  className="flex items-start gap-4 p-4 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-900/50 transition-colors"
+                >
+                  {(item.type === "music" && item.albumImage) || (item.type === "movie" && typeof item.posterImage === "string") ? (
+                    <a href={item.url} target="_blank" rel="noopener noreferrer" className="flex-shrink-0">
+                      <img
+                        src={item.type === "music" ? item.albumImage : item.posterImage || ""}
+                        alt={item.title}
+                        className="w-12 h-12 rounded shadow object-cover"
+                      />
+                    </a>
+                  ) : (
+                    <div className="p-2 bg-red-50 dark:bg-red-900/20 rounded-lg">
+                      <item.icon className="w-5 h-5 text-red-500 dark:text-red-400" />
+                    </div>
+                  )}
+                  <div className="space-y-1">
+                    <h4 className="font-medium text-gray-900 dark:text-gray-100">{item.title}</h4>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">{item.author}</p>
+                    <p className="text-xs text-red-500 dark:text-red-400">{item.status}</p>
+                    {/* {item.type === "movie" && item.releaseDate && (
+                      <p className="text-xs text-gray-500">({new Date(item.releaseDate).getFullYear()})</p>
+                    )} */}
+                  </div>
                 </div>
-                <div className="space-y-1">
-                  <h4 className="font-medium text-gray-900 dark:text-gray-100">{item.title}</h4>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">{item.author}</p>
-                  <p className="text-xs text-red-500 dark:text-red-400">{item.status}</p>
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
@@ -207,9 +238,11 @@ export default function Portfolio() {
         <div className="max-w-4xl mx-auto px-6">
           <div className="text-center">
             <p className="text-gray-600 dark:text-gray-400 italic">
-              "The way I see it, if you want the rainbow, you gotta put up with the rain."
+              "{movieQuote.quote}"
             </p>
-            <p className="text-sm text-gray-500 dark:text-gray-500 mt-2">— Dolly Parton</p>
+            <div className="text-sm text-gray-500 dark:text-gray-500 mt-2">
+              <p>— {movieQuote.character ? `${movieQuote.character}, ` : ''}{movieQuote.movie}</p>
+            </div>
           </div>
         </div>
       </footer>
