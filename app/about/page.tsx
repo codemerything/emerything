@@ -12,10 +12,10 @@ export default function About() {
             <h1 className="text-4xl font-bold text-gray-900 dark:text-gray-100">About me</h1>
             <div className="prose prose-lg dark:prose-invert max-w-none">
               <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-                I'm [Your Name]. You may also know me as <span className="italic">username</span>, currently a Software
+                I'm Emery. You may also know me as <span className="italic">Zima</span>, currently a Software
                 Developer at{" "}
-                <Link href="#" className="text-red-500 dark:text-red-400 underline hover:no-underline">
-                  Company Name
+                <Link href="https://juxstudios.com" className="text-red-500 dark:text-red-400 underline hover:no-underline">
+                  Jux Studios
                 </Link>
                 . Previously I worked at{" "}
                 <Link href="#" className="text-red-500 dark:text-red-400 underline hover:no-underline">

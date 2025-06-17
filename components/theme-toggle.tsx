@@ -9,6 +9,13 @@ export function ThemeToggle() {
   const { theme, setTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
 
+  /**
+   * When the component mounts, set the `mounted` state to `true`.
+   * This is necessary because we want to avoid hydration mismatches
+   * when the theme is changed on the client side. See
+   * https://nextjs.org/docs/messages/react-hydration-error
+   * for more information.
+   */
   useEffect(() => {
     setMounted(true)
   }, [])
