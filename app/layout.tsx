@@ -19,7 +19,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={geist.className}>
+      <body className={geist.className + " bg-misty-rose-50 text-smoky-black-900 dark:bg-smoky-black-950 dark:text-misty-rose-100"}>
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
           <div className="min-h-screen">
             <Header />
