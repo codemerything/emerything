@@ -8,8 +8,18 @@ import { Header } from "@/components/header"
 const geist = Geist({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Emery- Portfolio",
-  description: "Developer, Writer, Creator",
+  title: "Emery",
+  description: "Design Engineer",
+  icons: {
+    icon: [
+      {
+        url: "/icon.svg",
+        type: "image/svg+xml",
+      }
+    ],
+    shortcut: "/icon.svg",
+    apple: "/icon.svg",
+  },
 }
 
 export default function RootLayout({
