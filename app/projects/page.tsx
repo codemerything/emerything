@@ -27,23 +27,29 @@ export default async function Projects() {
             {projects.map((project, index) => (
               <Card key={index} className="group hover:shadow-lg transition-shadow border-misty-rose-200 dark:border-smoky-black-700 bg-misty-rose-50 dark:bg-smoky-black-950">
                 <CardContent className="p-0">
-                  {/* <div className="aspect-video relative overflow-hidden rounded-t-lg">
-                    <Image
-                      src={project.images[0] || "/placeholder.svg"}
-                      alt={project.title}
-                      fill
-                      className="object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
-                  </div> */}
-                  <div className="p-6 space-y-4">
-                    <Link href={`/projects/${project.slug}`} className="block">
-                      <div className="space-y-2">
-                        <h3 className="font-semibold text-smoky-black-900 dark:text-misty-rose-100 group-hover:text-shamock-green-700 dark:group-hover:text-shamock-green-300 transition-colors">{project.title}</h3>
-                        <p className="text-sm text-smoky-black-700 dark:text-misty-rose-300 font-medium">{project.subtitle}</p>
-                      </div>
-                    </Link>
+                  <div className="p-5 space-y-4">
+                    <div className="flex justify-between items-start">
+                      <Link href={`/projects/${project.slug}`} className="block flex-1">
+                        <div className="space-y-2">
+                          <h3 className="font-semibold text-smoky-black-900 dark:text-misty-rose-100 group-hover:text-shamock-green-700 dark:group-hover:text-shamock-green-300 transition-colors">{project.title}</h3>
+                          <p className="text-sm text-smoky-black-700 dark:text-misty-rose-300 font-medium">{project.subtitle}</p>
+                        </div>
+                      </Link>
+                      {project.liveUrl && (
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          className="text-smoky-black-700 hover:text-shamock-green-700 dark:text-misty-rose-300 dark:hover:text-shamock-green-300 -mt-1 -mr-2 hover:bg-misty-rose-100 dark:hover:bg-smoky-black-800"
+                          asChild
+                        >
+                          <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
+                            <ExternalLink className="w-4 h-4" />
+                          </a>
+                        </Button>
+                      )}
+                    </div>
                     <div className="flex flex-wrap gap-2">
-                      {project.technologies.map((tech, techIndex) => (
+                      {project.technologies.slice(0, 3).map((tech, techIndex) => (
                         <Badge
                           key={techIndex}
                           variant="secondary"
@@ -52,43 +58,15 @@ export default async function Projects() {
                           {tech.name}
                         </Badge>
                       ))}
-                    </div>
-                    {/* {project.reviewAuthor && (
-                      <div className="border-t pt-4 mt-4">
-                        <blockquote className="text-sm italic text-gray-600 dark:text-gray-400">
-                          <footer className="mt-2">
-                            <strong className="text-gray-900 dark:text-gray-100">{project.reviewAuthor}</strong>
-                            {project.reviewRole && (
-                              <>
-                                <span className="mx-1">·</span>
-                                <span>{project.reviewRole}</span>
-                              </>
-                            )}
-                            {project.reviewCompany && (
-                              <>
-                                <span className="mx-1">·</span>
-                                <span>{project.reviewCompany}</span>
-                              </>
-                            )}
-                          </footer>
-                        </blockquote>
-                      </div>
-                    )} */}
-                    {project.liveUrl && (
-                      <div className="flex items-center gap-2 pt-2">
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          className="text-smoky-black-700 hover:text-shamock-green-700 dark:text-misty-rose-300 dark:hover:text-shamock-green-300 p-0"
-                          asChild
+                      {project.technologies.length > 3 && (
+                        <Badge
+                          variant="secondary"
+                          className="text-xs bg-misty-rose-100 dark:bg-smoky-black-800 text-smoky-black-700 dark:text-misty-rose-300"
                         >
-                          <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
-                            <ExternalLink className="w-4 h-4 mr-1" />
-                            Live
-                          </a>
-                        </Button>
-                      </div>
-                    )}
+                          +{project.technologies.length - 3}
+                        </Badge>
+                      )}
+                    </div>
                   </div>
                 </CardContent>
               </Card>
