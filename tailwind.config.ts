@@ -1,4 +1,4 @@
-import type { Config } from "tailwindcss"
+import type { Config } from "tailwindcss";
 
 const config: Config = {
   darkMode: ["class"],
@@ -53,17 +53,44 @@ const config: Config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        red: {
-          50: "#FEF2F2",
-          100: "#FEE2E2",
-          200: "#FECACA",
-          300: "#FCA5A5",
-          400: "#F87171",
-          500: "#E53E3E",
-          600: "#DC2626",
-          700: "#B91C1C",
-          800: "#991B1B",
-          900: "#7F1D1D",
+        "misty-rose": {
+          50: "#FEFCFB",
+          100: "#FEFCFB",
+          200: "#FDF8F8",
+          300: "#FCF5F4",
+          400: "#FBF2F1",
+          500: "#F9EBE9",
+          600: "#F8E7E6",
+          700: "#F7E4E2",
+          800: "#F6E1DE",
+          900: "#F5DDDB",
+          950: "#F4DBD8",
+        },
+        "smoky-black": {
+          50: "#F4F0EE",
+          100: "#EAE1DC",
+          200: "#D8C2B7",
+          300: "#C1A291",
+          400: "#A3897A",
+          500: "#867064",
+          600: "#6A584E",
+          700: "#4D3F38",
+          800: "#342A24",
+          900: "#1D1613",
+          950: "#0D0907",
+        },
+        "shamock-green": {
+          50: "#DDFFE6",
+          100: "#C3FFD4",
+          200: "#3CFE93",
+          300: "#1FF085",
+          400: "#1CDD7A",
+          500: "#19CD71",
+          600: "#16BB66",
+          700: "#13AC5E",
+          800: "#109A53",
+          900: "#0E8C4B",
+          950: "#0C8346",
         },
       },
       borderRadius: {
@@ -88,6 +115,6 @@ const config: Config = {
     },
   },
   plugins: [require("tailwindcss-animate")],
-} satisfies Config
+} satisfies Config;
 
-export default config
+export default config;
