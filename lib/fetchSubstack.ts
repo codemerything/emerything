@@ -5,6 +5,7 @@ export type SubstackArticle = {
   date: string;
   link: string;
   guid: string;
+  subtitle?: string;
 };
 
 export async function fetchSubstackArticles(): Promise<SubstackArticle[]> {
@@ -21,6 +22,7 @@ export async function fetchSubstackArticles(): Promise<SubstackArticle[]> {
         date: item.pubDate,
         link: item.link,
         guid: item.guid,
+        subtitle: item.description || item.content || item["content:encoded"],
       }))
     : [];
 }
