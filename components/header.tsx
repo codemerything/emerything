@@ -14,18 +14,18 @@ export function Header() {
   }
 
   return (
-    <header className="b border-gray-200 dark:border-gray-800">
+    <header className=" border-misty-rose-200 dark:border-smoky-black-700 bg-misty-rose-50 dark:bg-smoky-black-950">
       <div className="max-w-4xl mx-auto px-4 py-3 mt-10 flex items-center justify-between">
-        <Link href="/" className="text-xl font-semibold text-gray-900 dark:text-gray-100">
-          Emery
+        <Link href="/" className="text-lg  text-smoky-black-900 dark:text-smoky-black-100 hover:text-shamock-green-700 dark:hover:text-shamock-green-300 transition-colors">
+          Emery — Design Engineer
         </Link>
         <nav className="flex items-center gap-6">
           <Link
             href="/about"
             className={
               isActive("/about")
-                ? "text-red-500 dark:text-red-400 transition-colors"
-                : "text-gray-600 hover:text-red-500 dark:text-gray-400 dark:hover:text-red-400 transition-colors"
+                ? "text-smoky-black-700 dark:text-smoky-black-200 transition-colors"
+                : "text-smoky-black-600 hover:text-shamock-green-700 dark:text-smoky-black-100 dark:hover:text-shamock-green-300 transition-colors"
             }
           >
             About
@@ -34,8 +34,8 @@ export function Header() {
             href="/projects"
             className={
               isActive("/projects")
-                ? "text-red-500 dark:text-red-400 transition-colors"
-                : "text-gray-600 hover:text-red-500 dark:text-gray-400 dark:hover:text-red-400 transition-colors"
+                ? "text-smoky-black-900 dark:text-smoky-black-200 transition-colors"
+                : "text-smoky-black-600 hover:text-shamock-green-700 dark:text-smoky-black-100 dark:hover:text-shamock-green-300 transition-colors"
             }
           >
             Projects
@@ -44,8 +44,8 @@ export function Header() {
             href="/writing"
             className={
               isActive("/writing")
-                ? "text-red-500 dark:text-red-400 transition-colors"
-                : "text-gray-600 hover:text-red-500 dark:text-gray-400 dark:hover:text-red-400 transition-colors"
+                ? "text-smoky-black-700 dark:text-smoky-black-200 transition-colors"
+                : "text-smoky-black-600 hover:text-shamock-green-700 dark:text-smoky-black-100 dark:hover:text-shamock-green-300 transition-colors"
             }
           >
             Writing
