@@ -27,16 +27,26 @@ export default async function Writing() {
     })),
   ].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
 
-  // Featured post (keep as is for now)
-  const featuredPost = {
+  // Featured post - use the most recent Substack article
+  const featuredPost = substack.length > 0 ? {
+    title: substack[0].title,
+    date: new Date(substack[0].date).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    }),
+    readTime: "5 minute read", // Default read time since Substack doesn't provide this
+    excerpt: substack[0].subtitle || "A self-guaranteeing promise does not require you to trust anyone. You can verify it yourself.", // Use Substack subtitle or fallback
+    slug: substack[0].guid || substack[0].link,
+    url: substack[0].link,
+  } : {
     title: "The Art of Minimal Design",
     date: "December 3, 2024",
     readTime: "5 minute read",
     excerpt: "A self-guaranteeing promise does not require you to trust anyone. You can verify it yourself.",
     slug: "art-of-minimal-design",
+    url: "#",
   }
-
-
 
   return (
     <div>
@@ -48,23 +58,25 @@ export default async function Writing() {
             <h2 className="text-xl text-gray-500 dark:text-gray-400">Latest</h2>
             <article className="space-y-4">
               <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
-                <Link
-                  href={`/writing/${featuredPost.slug}`}
+                <a
+                  href={featuredPost.url}
                   className="hover:text-red-500 dark:hover:text-red-400 transition-colors"
+                  target="_blank" rel="noopener noreferrer"
                 >
                   {featuredPost.title}
-                </Link>
+                </a>
               </h1>
               <div className="text-gray-500 dark:text-gray-400 text-sm">
                 {featuredPost.date} · {featuredPost.readTime}
               </div>
               <p className="text-gray-600 dark:text-gray-300 leading-relaxed">{featuredPost.excerpt}</p>
-              <Link
-                href={`/writing/${featuredPost.slug}`}
+              <a
+                href={featuredPost.url}
                 className="text-red-500 dark:text-red-400 hover:underline text-sm"
+                target="_blank" rel="noopener noreferrer"
               >
                 Keep reading →
-              </Link>
+              </a>
             </article>
           </section>
 
