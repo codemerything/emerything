@@ -9,42 +9,42 @@ export default function About() {
         <div className="space-y-8">
           {/* About Me Section */}
           <section className="space-y-4">
-            <h1 className="text-4xl font-bold text-gray-900 dark:text-gray-100">About me</h1>
+            <h1 className="text-xl font-bold text-gray-900 dark:text-gray-100">About me</h1>
             <div className="prose prose-lg dark:prose-invert max-w-none">
               <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-                I'm Emery. You may also know me as <span className="italic">Zima</span>, currently a Software
-                Developer at{" "}
-                <Link href="https://juxstudios.com" className="text-red-500 dark:text-red-400 underline hover:no-underline">
+                I'm Emery. You may also know me as <a href="https://www.x.com/zimaab" className="italic">Zima</a>, currently a Design
+                Engineer at{" "}
+                <Link href="https://juxstudios.com" className="text-shamock-green-500 underline hover:no-underline">
                   Jux Studios
                 </Link>
-                . Previously I worked at{" "}
-                <Link href="#" className="text-red-500 dark:text-red-400 underline hover:no-underline">
-                  Previous Company
+                . Previously I worked as an Assistant Creative Director at{" "}
+                <Link href="www.instagram.com/dnmgdx" className="text-shamock-green-500 underline hover:no-underline">
+                  DNMGD Apparel
                 </Link>{" "}
                 and{" "}
-                <Link href="#" className="text-red-500 dark:text-red-400 underline hover:no-underline">
+                <Link href="#" className="text-shamock-green-500 underline hover:no-underline">
                   Another Company
                 </Link>
                 . A few links to explore:
               </p>
               <ul className="space-y-2 mt-6">
                 <li>
-                  <Link href="/writing" className="text-red-500 dark:text-red-400 underline hover:no-underline">
+                  <Link href="/writing" className="text-shamock-green-500 underline hover:no-underline">
                     Writing
                   </Link>
                 </li>
                 <li>
-                  <Link href="/projects" className="text-red-500 dark:text-red-400 underline hover:no-underline">
+                  <Link href="/projects" className="text-shamock-green-500 underline hover:no-underline">
                     Projects
                   </Link>
                 </li>
                 <li>
-                  <Link href="#" className="text-red-500 dark:text-red-400 underline hover:no-underline">
-                    Photography
-                  </Link>
+                  <a href="/Emmanuel_Edem_Resume.md" download className="text-shamock-green-500 underline hover:no-underline">
+                    Download Resume <span className="text-xs">(MD)</span>
+                  </a>
                 </li>
                 <li>
-                  <Link href="#" className="text-red-500 dark:text-red-400 underline hover:no-underline">
+                  <Link href="#" className="text-shamock-green-500 underline hover:no-underline">
                     What I'm doing now
                   </Link>
                 </li>
@@ -54,13 +54,13 @@ export default function About() {
 
           {/* Elsewhere Section */}
           <section className="space-y-4">
-            <h2 className="text-2xl font-semibold text-gray-900 dark:text-gray-100">Elsewhere</h2>
+            <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100">Elsewhere</h2>
             <div className="prose dark:prose-invert max-w-none">
               <p className="text-gray-600 dark:text-gray-300">
                 You can{" "}
                 <Link
                   href="mailto:your@email.com"
-                  className="text-red-500 dark:text-red-400 underline hover:no-underline"
+                  className="text-shamock-green-500 underline hover:no-underline"
                 >
                   receive updates from me via email
                 </Link>{" "}
@@ -69,100 +69,85 @@ export default function About() {
               <ul className="space-y-2 mt-6">
                 <li>
                   RSS feed:{" "}
-                  <Link href="/feed.xml" className="text-red-500 dark:text-red-400 underline hover:no-underline">
+                  <Link href="/feed.xml" className="text-shamock-green-500 underline hover:no-underline">
                     yourname.com/feed
                   </Link>
                 </li>
                 <li>
                   Twitter:{" "}
                   <Link
-                    href="https://twitter.com/yourusername"
-                    className="text-red-500 dark:text-red-400 underline hover:no-underline"
+                    href="https://twitter.com/zimaab"
+                    className="text-shamock-green-500 underline hover:no-underline"
                   >
-                    @yourusername
+                    @zimaab
                     <ExternalLink className="inline w-3 h-3 ml-1" />
                   </Link>
                 </li>
                 <li>
                   GitHub:{" "}
                   <Link
-                    href="https://github.com/yourusername"
-                    className="text-red-500 dark:text-red-400 underline hover:no-underline"
+                    href="https://github.com/codemerything"
+                    className="text-shamock-green-500 underline hover:no-underline"
                   >
-                    @yourusername
+                    @codemerything
                     <ExternalLink className="inline w-3 h-3 ml-1" />
                   </Link>
                 </li>
                 <li>
                   LinkedIn:{" "}
                   <Link
-                    href="https://linkedin.com/in/yourusername"
-                    className="text-red-500 dark:text-red-400 underline hover:no-underline"
+                    href="https://linkedin.com/in/mmnldm"
+                    className="text-shamock-green-500 underline hover:no-underline"
                   >
-                    @yourusername
+                    @mmnldm
                     <ExternalLink className="inline w-3 h-3 ml-1" />
                   </Link>
                 </li>
                 <li>
-                  Mastodon:{" "}
+                  Farcaster:{" "}
                   <Link
-                    href="https://mastodon.social/@yourusername"
-                    className="text-red-500 dark:text-red-400 underline hover:no-underline"
+                    href="https://farcaster.xyz/@zimaa"
+                    className="text-shamock-green-500 underline hover:no-underline"
                   >
-                    @yourusername@mastodon.social
+                    @zimaa
                     <ExternalLink className="inline w-3 h-3 ml-1" />
+                  </Link>
+                </li>
+                <li>
+                  Behance:{" "}
+                  <Link
+                    href="https://www.behance.net/mmnldm"
+                    className="text-shamock-green-500 underline hover:no-underline"
+                  >
+                    @mmnldm
                   </Link>
                 </li>
               </ul>
             </div>
           </section>
 
-          {/* Speaking Section */}
+          {/* What I'm doing now Section */}
           <section className="space-y-4">
-            <h2 className="text-2xl font-semibold text-gray-900 dark:text-gray-100">Speaking</h2>
+            <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100">What I'm doing now</h2>
             <div className="prose dark:prose-invert max-w-none">
               <p className="text-gray-600 dark:text-gray-300">
-                If you would like me to appear on your publication or event,{" "}
-                <Link
-                  href="mailto:your@email.com"
-                  className="text-red-500 dark:text-red-400 underline hover:no-underline"
-                >
-                  reach out to me
-                </Link>
-                .
+                I'm currently working on a new project called <a href="https://chromewebstore.google.com/detail/degen-cost/kmpmnllmhildaflkcfdjenkiiggddcco" className="text-shamock-green-500 underline hover:no-underline" target="_blank">
+                  Degen Cost
+                </a>. It's an extension that helps converts fiat to crypto and it was inspired by the trading culture in web3 and I thought a little tool to help put things in perspective.
               </p>
-              <ul className="space-y-2 mt-6">
-                <li>
-                  <Link href="#" className="text-red-500 dark:text-red-400 underline hover:no-underline">
-                    Tech Conference
-                    <ExternalLink className="inline w-3 h-3 ml-1" />
-                  </Link>{" "}
-                  (2024)
-                </li>
-                <li>
-                  <Link href="#" className="text-red-500 dark:text-red-400 underline hover:no-underline">
-                    Design Podcast
-                    <ExternalLink className="inline w-3 h-3 ml-1" />
-                  </Link>{" "}
-                  (2023)
-                </li>
-                <li>
-                  <Link href="#" className="text-red-500 dark:text-red-400 underline hover:no-underline">
-                    Developer Meetup
-                    <ExternalLink className="inline w-3 h-3 ml-1" />
-                  </Link>{" "}
-                  (2023)
-                </li>
-                <li>
-                  <Link href="#" className="text-red-500 dark:text-red-400 underline hover:no-underline">
-                    Industry Panel
-                    <ExternalLink className="inline w-3 h-3 ml-1" />
-                  </Link>{" "}
-                  (2022)
-                </li>
-              </ul>
             </div>
           </section>
+
+          {/* Colophon Section
+          <section className="space-y-4">
+            <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100">Colophon</h2>
+            <div className="prose dark:prose-invert max-w-none">
+              <p className="text-gray-600 dark:text-gray-300">
+                This website was built with Next.js, Tailwind CSS, and TypeScript. The color pallete is
+              </p>
+            </div>
+          </section> */}
+
         </div>
       </main>
     </div>
