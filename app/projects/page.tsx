@@ -1,31 +1,23 @@
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Github, ExternalLink } from "lucide-react"
+import { ExternalLink } from "lucide-react"
 import Image from "next/image"
+import Link from "next/link"
+import { getProjects } from "@/lib/contentful"
 
-const projects = [
-  {
-    title: "Stunner Rave ",
-    description: "Full-stack Next.js application with Stripe integration and modern UI components",
-    image: "/placeholder.svg?height=200&width=300",
-    tags: ["Next.js", "JavaScript", "Paystack", "Tailwind"],
-    github: "#",
-    live: "https://stunnerrave.com",
-    year: "2024",
-  },
+export const revalidate = 3600 // Revalidate every hour
 
-]
+export default async function Projects() {
+  const projects = await getProjects()
 
-export default function Projects() {
   return (
-    <div>
-      {/* Projects Content */}
+    <div className="min-h-screen bg-misty-rose-50 dark:bg-smoky-black-950">
       <main className="max-w-4xl mx-auto px-6 py-12">
         <div className="space-y-8">
           <div className="space-y-4">
-            <h1 className="text-4xl font-bold text-gray-900 dark:text-gray-100">Projects</h1>
-            <p className="text-gray-600 dark:text-gray-300 leading-relaxed max-w-2xl">
+            <h1 className="text-xl font-bold text-smoky-black-900 dark:text-misty-rose-100">Projects</h1>
+            <p className="text-smoky-black-700 dark:text-misty-rose-300 leading-relaxed max-w-2xl">
               A collection of things I've built over the years. From web applications to mobile apps, each project
               represents a learning journey and exploration of different technologies.
             </p>
@@ -33,56 +25,70 @@ export default function Projects() {
 
           <div className="grid md:grid-cols-2 gap-6">
             {projects.map((project, index) => (
-              <Card
-                key={index}
-                className="group hover:shadow-lg transition-shadow border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900"
-              >
+              <Card key={index} className="group hover:shadow-lg transition-shadow border-misty-rose-200 dark:border-smoky-black-700 bg-misty-rose-50 dark:bg-smoky-black-950">
                 <CardContent className="p-0">
-                  <div className="aspect-video relative overflow-hidden rounded-t-lg">
+                  {/* <div className="aspect-video relative overflow-hidden rounded-t-lg">
                     <Image
-                      src={project.image || "/placeholder.svg"}
+                      src={project.images[0] || "/placeholder.svg"}
                       alt={project.title}
                       fill
                       className="object-cover group-hover:scale-105 transition-transform duration-300"
                     />
-                  </div>
+                  </div> */}
                   <div className="p-6 space-y-4">
-                    <div className="flex items-start justify-between">
-                      <div className="space-y-2 flex-1">
-                        <h3 className="font-semibold text-gray-900 dark:text-gray-100">{project.title}</h3>
-                        <p className="text-sm text-gray-600 dark:text-gray-400">{project.description}</p>
+                    <Link href={`/projects/${project.slug}`} className="block">
+                      <div className="space-y-2">
+                        <h3 className="font-semibold text-smoky-black-900 dark:text-misty-rose-100 group-hover:text-shamock-green-700 dark:group-hover:text-shamock-green-300 transition-colors">{project.title}</h3>
+                        <p className="text-sm text-smoky-black-700 dark:text-misty-rose-300 font-medium">{project.subtitle}</p>
                       </div>
-                      <span className="text-xs text-gray-500 dark:text-gray-400 ml-4">{project.year}</span>
-                    </div>
+                    </Link>
                     <div className="flex flex-wrap gap-2">
-                      {project.tags.map((tag, tagIndex) => (
+                      {project.technologies.map((tech, techIndex) => (
                         <Badge
-                          key={tagIndex}
+                          key={techIndex}
                           variant="secondary"
-                          className="text-xs bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300"
+                          className="text-xs bg-misty-rose-100 dark:bg-smoky-black-800 text-smoky-black-700 dark:text-misty-rose-300"
                         >
-                          {tag}
+                          {tech.name}
                         </Badge>
                       ))}
                     </div>
-                    <div className="flex items-center gap-2 pt-2">
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        className="text-gray-600 hover:text-red-500 dark:text-gray-400 dark:hover:text-red-400 p-0"
-                      >
-                        <Github className="w-4 h-4 mr-1" />
-                        Code
-                      </Button>
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        className="text-gray-600 hover:text-red-500 dark:text-gray-400 dark:hover:text-red-400 p-0"
-                      >
-                        <ExternalLink className="w-4 h-4 mr-1" />
-                        Live
-                      </Button>
-                    </div>
+                    {/* {project.reviewAuthor && (
+                      <div className="border-t pt-4 mt-4">
+                        <blockquote className="text-sm italic text-gray-600 dark:text-gray-400">
+                          <footer className="mt-2">
+                            <strong className="text-gray-900 dark:text-gray-100">{project.reviewAuthor}</strong>
+                            {project.reviewRole && (
+                              <>
+                                <span className="mx-1">·</span>
+                                <span>{project.reviewRole}</span>
+                              </>
+                            )}
+                            {project.reviewCompany && (
+                              <>
+                                <span className="mx-1">·</span>
+                                <span>{project.reviewCompany}</span>
+                              </>
+                            )}
+                          </footer>
+                        </blockquote>
+                      </div>
+                    )} */}
+                    {project.liveUrl && (
+                      <div className="flex items-center gap-2 pt-2">
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          className="text-smoky-black-700 hover:text-shamock-green-700 dark:text-misty-rose-300 dark:hover:text-shamock-green-300 p-0"
+                          asChild
+                        >
+                          <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
+                            <ExternalLink className="w-4 h-4 mr-1" />
+                            Live
+                          </a>
+                        </Button>
+                      </div>
+                    )}
                   </div>
                 </CardContent>
               </Card>
