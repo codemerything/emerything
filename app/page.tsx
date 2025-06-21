@@ -2,12 +2,40 @@ import { BookOpen, Music, Film, ArrowRight } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import Image from "next/image"
 import Link from "next/link"
+import { LucideIcon } from "lucide-react"
 
 import { fetchSubstackArticles } from "@/lib/fetchSubstack"
 import { getSpotifyTrack } from "@/lib/spotify"
 import { getRecentMovie } from "@/lib/tmdb"
 import { getMovieQuote } from "@/lib/movieQuotes"
 import { getRecentProjects } from "@/lib/contentful"
+import { getCurrentlyReading } from "@/lib/books"
+
+type BaseConsumingItem = {
+  type: "music" | "movie" | "book";
+  icon: LucideIcon;
+  title: string;
+  author: string;
+  status: string;
+  url?: string;
+};
+
+type MusicItem = BaseConsumingItem & {
+  type: "music";
+  albumImage: string | undefined;
+};
+
+type MovieItem = BaseConsumingItem & {
+  type: "movie";
+  posterImage: string | undefined;
+};
+
+type BookItem = BaseConsumingItem & {
+  type: "book";
+  coverImage: string | undefined;
+};
+
+type ConsumingItem = MusicItem | MovieItem | BookItem;
 
 async function getRecentWritings() {
   const articles = await fetchSubstackArticles()
@@ -21,11 +49,12 @@ async function getRecentWritings() {
 }
 
 async function getCurrentlyConsuming() {
-  const [track, movie] = await Promise.all([
+  const [track, movie, books] = await Promise.all([
     getSpotifyTrack(),
-    getRecentMovie()
+    getRecentMovie(),
+    getCurrentlyReading()
   ]);
-  return { track, movie };
+  return { track, movie, books };
 }
 
 export default async function Portfolio() {
@@ -36,42 +65,39 @@ export default async function Portfolio() {
     getRecentProjects()
   ]);
 
-  const { track: spotifyTrack, movie: recentMovie } = consumingData;
+  const { track: spotifyTrack, movie: recentMovie, books } = consumingData;
 
-  const currentlyConsuming = [
-    spotifyTrack && {
-      type: "music",
-      icon: Music,
-      title: spotifyTrack.title,
-      author: spotifyTrack.artist,
-      status: spotifyTrack.isCurrentlyPlaying ? "Currently playing" : "Recently played",
-      albumImage: spotifyTrack.albumImage,
-      url: spotifyTrack.url,
-    },
-    recentMovie && {
-      type: "movie",
-      icon: Film,
-      title: recentMovie.title,
-      author: recentMovie.director,
-      status: "Recently watched",
-      posterImage: recentMovie.posterPath,
-      releaseDate: recentMovie.releaseDate,
-    },
-    {
-      type: "book",
-      icon: BookOpen,
-      title: "Atomic Habits",
-      author: "James Clear",
-      status: "Reading",
-    },
-    {
-      type: "book",
-      icon: BookOpen,
-      title: "The Design of Everyday Things",
-      author: "Don Norman",
-      status: "Next up",
-    },
-  ].filter(Boolean)
+  const currentlyConsuming = (
+    [
+      spotifyTrack && ({
+        type: "music" as const,
+        icon: Music,
+        title: spotifyTrack.title,
+        author: spotifyTrack.artist,
+        status: spotifyTrack.isCurrentlyPlaying ? "Currently playing" : "Recently played",
+        albumImage: spotifyTrack.albumImage || undefined,
+        url: spotifyTrack.url,
+      } as MusicItem),
+      recentMovie && ({
+        type: "movie" as const,
+        icon: Film,
+        title: recentMovie.title,
+        author: recentMovie.director,
+        status: "Recently watched",
+        posterImage: recentMovie.posterPath || undefined,
+        url: recentMovie.url
+      } as MovieItem),
+      ...(books || []).map(book => ({
+        type: "book" as const,
+        icon: BookOpen,
+        title: book.title,
+        author: book.author,
+        status: book.status,
+        coverImage: book.coverImage || undefined,
+        url: book.url
+      } as BookItem))
+    ] as const
+  ).filter((item): item is ConsumingItem => item !== null);
 
   return (
     <div className="min-h-screen bg-misty-rose-50 dark:bg-smoky-black-950">
@@ -170,15 +196,21 @@ export default async function Portfolio() {
           <div className="grid md:grid-cols-2 gap-4">
             {currentlyConsuming.map((item, index) => {
               if (!item) return null;
+              const image =
+                item.type === "music" ? item.albumImage :
+                  item.type === "movie" ? item.posterImage :
+                    item.type === "book" ? item.coverImage :
+                      undefined;
+
               return (
                 <div
                   key={index}
                   className="flex items-start gap-4 p-4 rounded-lg hover:bg-misty-rose-100 dark:hover:bg-smoky-black-800/50 transition-colors"
                 >
-                  {(item.type === "music" && item.albumImage) || (item.type === "movie" && typeof item.posterImage === "string") ? (
+                  {image ? (
                     <a href={item.url} target="_blank" rel="noopener noreferrer" className="flex-shrink-0">
                       <img
-                        src={item.type === "music" ? item.albumImage : item.posterImage || ""}
+                        src={image}
                         alt={item.title}
                         className="w-12 h-12 rounded shadow object-cover"
                       />
@@ -189,7 +221,13 @@ export default async function Portfolio() {
                     </div>
                   )}
                   <div className="space-y-1">
-                    <h4 className="font-medium text-smoky-black-900 dark:text-misty-rose-100">{item.title}</h4>
+                    {item.url ? (
+                      <a href={item.url} target="_blank" rel="noopener noreferrer" className="font-medium text-smoky-black-900 dark:text-misty-rose-100 hover:underline">
+                        {item.title}
+                      </a>
+                    ) : (
+                      <h4 className="font-medium text-smoky-black-900 dark:text-misty-rose-100">{item.title}</h4>
+                    )}
                     <p className="text-sm text-smoky-black-700 dark:text-misty-rose-300">{item.author}</p>
                     <p className="text-xs text-smoky-black-500 dark:text-misty-rose-400">{item.status}</p>
                   </div>
