@@ -69,6 +69,7 @@ export function ProjectCarousel({ images, projectTitle }: ProjectCarouselProps) 
                                     autoPlay
                                     preload={index === currentIndex ? "auto" : "metadata"}
                                     poster={`${media.split('.')[0]}.jpg`}
+                                    suppressHydrationWarning
                                     onLoadedData={() => {
                                         if (index === currentIndex) {
                                             videoRefs.current[index]?.play()

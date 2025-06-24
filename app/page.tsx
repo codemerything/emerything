@@ -136,6 +136,7 @@ export default async function Portfolio() {
                         muted
                         autoPlay
                         playsInline
+                        suppressHydrationWarning
                       />
                     ) : (
                       <Image
