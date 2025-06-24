@@ -1,11 +1,8 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Geist } from "next/font/google"
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { Header } from "@/components/header"
-
-const geist = Geist({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
   title: "Emery",
@@ -29,7 +26,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={geist.className + " bg-misty-rose-50 text-smoky-black-900 dark:bg-smoky-black-950 dark:text-misty-rose-100"}>
+      <body className="font-alte bg-misty-rose-50 text-smoky-black-900 dark:bg-smoky-black-950 dark:text-misty-rose-100">
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

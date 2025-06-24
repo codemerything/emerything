@@ -19,6 +19,9 @@ const config: Config = {
       },
     },
     extend: {
+      fontFamily: {
+        alte: ["Alte Haas Grotesk", "sans-serif"],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
