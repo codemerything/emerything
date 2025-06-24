@@ -60,7 +60,7 @@ export default async function Writing() {
               <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
                 <a
                   href={featuredPost.url}
-                  className="hover:text-red-500 dark:hover:text-red-400 transition-colors"
+                  className="hover:text-shamock-green-500 dark:hover:text-shamock-green-400 transition-colors"
                   target="_blank" rel="noopener noreferrer"
                 >
                   {featuredPost.title}
@@ -72,7 +72,7 @@ export default async function Writing() {
               <p className="text-gray-600 dark:text-gray-300 leading-relaxed">{featuredPost.excerpt}</p>
               <a
                 href={featuredPost.url}
-                className="text-red-500 dark:text-red-400 hover:underline text-sm"
+                className="text-shamock-green-500 dark:text-shamock-green-400 hover:underline text-sm"
                 target="_blank" rel="noopener noreferrer"
               >
                 Keep reading →
@@ -92,7 +92,7 @@ export default async function Writing() {
                   <time className="text-gray-500 dark:text-gray-400 text-sm font-mono min-w-[80px]">{new Date(post.date).toISOString().slice(0, 10)}</time>
                   <a
                     href={post.url}
-                    className="text-red-500 dark:text-red-400 underline hover:no-underline transition-colors"
+                    className="text-shamock-green-500 dark:text-shamock-green-400 underline hover:no-underline transition-colors"
                     target="_blank" rel="noopener noreferrer"
                   >
                     {post.title} <span className="ml-2 text-xs text-gray-400">({post.source})</span>

@@ -40,15 +40,16 @@ export function Header() {
           >
             Projects
           </Link>
+
           <Link
-            href="/writing"
+            href="/resume"
             className={
-              isActive("/writing")
+              isActive("/resume")
                 ? "text-smoky-black-700 dark:text-smoky-black-200 transition-colors"
                 : "text-smoky-black-600 hover:text-shamock-green-700 dark:text-smoky-black-100 dark:hover:text-shamock-green-300 transition-colors"
             }
           >
-            Writing
+            Resume
           </Link>
           <ThemeToggle />
         </nav>

@@ -6,9 +6,22 @@ import { TechStack } from "@/components/tech-stack"
 import { CustomerReview } from "@/components/customer-review"
 import { notFound } from "next/navigation"
 import { getProjectBySlug } from "@/lib/contentful"
+import { Suspense } from "react"
+import { Metadata } from "next"
 
 interface ProjectPageProps {
     params: { slug: string }
+}
+
+// Generate metadata for better SEO and loading
+export async function generateMetadata({ params }: ProjectPageProps): Promise<Metadata> {
+    const project = await getProjectBySlug(params.slug)
+    if (!project) return { title: 'Project Not Found' }
+
+    return {
+        title: `${project.title} | Project`,
+        description: project.subtitle,
+    }
 }
 
 export default async function ProjectPage({ params }: ProjectPageProps) {
@@ -35,10 +48,6 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             }
         ]
     } : undefined;
-
-    // Debug log for final review object
-    console.log('Has review data:', hasReviewData);
-    console.log('Final Review Object:', review);
 
     return (
         <div className="min-h-screen bg-misty-rose-50 dark:bg-smoky-black-950">
@@ -105,7 +114,9 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                     {project.images && project.images.length > 0 && (
                         <section className="space-y-6">
                             <h2 className="text-xl font-semibold text-smoky-black-900 dark:text-misty-rose-100">Preview</h2>
-                            <ProjectCarousel images={project.images} projectTitle={project.title} />
+                            <Suspense fallback={<div className="aspect-video w-full bg-gray-100 dark:bg-gray-800 rounded-lg animate-pulse" />}>
+                                <ProjectCarousel images={project.images} projectTitle={project.title} />
+                            </Suspense>
                         </section>
                     )}
 
@@ -113,7 +124,9 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                     {project.technologies && project.technologies.length > 0 && (
                         <section className="space-y-6">
                             <h2 className="text-xl font-semibold text-smoky-black-900 dark:text-misty-rose-100">Technology Stack</h2>
-                            <TechStack technologies={project.technologies} />
+                            <Suspense fallback={<div className="h-20 bg-gray-100 dark:bg-gray-800 rounded-lg animate-pulse" />}>
+                                <TechStack technologies={project.technologies} />
+                            </Suspense>
                         </section>
                     )}
 
@@ -133,7 +146,9 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                     {review && (
                         <section className="space-y-6">
                             <h2 className="text-xl font-semibold text-smoky-black-900 dark:text-misty-rose-100">Client Feedback</h2>
-                            <CustomerReview review={review} />
+                            <Suspense fallback={<div className="h-40 bg-gray-100 dark:bg-gray-800 rounded-lg animate-pulse" />}>
+                                <CustomerReview review={review} />
+                            </Suspense>
                         </section>
                     )}
 

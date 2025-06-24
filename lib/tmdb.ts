@@ -8,6 +8,7 @@ export type Movie = {
   posterPath: string | null;
   releaseDate: string;
   id: number;
+  url: string;
 };
 
 export async function getRecentMovie(): Promise<Movie | null> {
@@ -65,6 +66,7 @@ export async function getRecentMovie(): Promise<Movie | null> {
         : null,
       releaseDate: movie.release_date,
       id: movie.id,
+      url: `https://www.themoviedb.org/movie/${movie.id}`,
     };
   } catch (error) {
     console.error("Error fetching movie:", error);

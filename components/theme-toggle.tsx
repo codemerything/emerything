@@ -7,19 +7,25 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 import { useEffect, useState } from "react"
 
 export function ThemeToggle() {
-  const { theme, setTheme } = useTheme()
+  const { theme, setTheme, systemTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
   const [showNotification, setShowNotification] = useState(false)
 
   /**
-   * When the component mounts, set the `mounted` state to `true`.
-   * This is necessary because we want to avoid hydration mismatches
-   * when the theme is changed on the client side. See
-   * https://nextjs.org/docs/messages/react-hydration-error
-   * for more information.
+   * When the component mounts:
+   * 1. Set the mounted state to true
+   * 2. Check if theme preference exists, if not, set to system theme
+   * 3. Show notification for first-time visitors
    */
   useEffect(() => {
     setMounted(true)
+
+    // Check if user has a theme preference
+    const userTheme = localStorage.getItem('theme')
+    if (!userTheme) {
+      // If no preference, set to system theme
+      setTheme('system')
+    }
 
     // Check if this is the first visit
     const hasVisited = localStorage.getItem('theme-notification-shown')
@@ -32,7 +38,7 @@ export function ThemeToggle() {
         setShowNotification(false)
       }, 3000)
     }
-  }, [])
+  }, [setTheme])
 
   // Keyboard shortcut handler
   useEffect(() => {
@@ -54,8 +60,16 @@ export function ThemeToggle() {
   }, [mounted, theme, setTheme])
 
   const toggleTheme = () => {
-    setTheme(theme === "light" ? "dark" : "light")
+    // If currently using system theme, switch to explicit light/dark
+    if (theme === 'system') {
+      setTheme(systemTheme === 'dark' ? 'light' : 'dark')
+    } else {
+      setTheme(theme === "light" ? "dark" : "light")
+    }
   }
+
+  // Get the actual theme (accounting for system theme)
+  const currentTheme = theme === 'system' ? systemTheme : theme
 
   if (!mounted) {
     return (
@@ -73,18 +87,18 @@ export function ThemeToggle() {
           <TooltipTrigger asChild>
             <button
               onClick={toggleTheme}
-              className="relative w-14 h-7  border border-misty-rose-600 dark:border-smoky-black-800 rounded-full p-1 transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer"
+              className="relative w-14 h-7 border border-misty-rose-600 dark:border-smoky-black-800 rounded-full p-1 transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer"
               aria-label="Toggle theme"
             >
               {/* Toggle Handle */}
               <div
-                className={`w-5 h-5 bg-white rounded-full shadow-md transition-all duration-300 flex items-center justify-center ${theme === 'dark' ? 'translate-x-7' : 'translate-x-0'
+                className={`w-5 h-5 bg-white rounded-full shadow-md transition-all duration-300 flex items-center justify-center ${currentTheme === 'dark' ? 'translate-x-7' : 'translate-x-0'
                   }`}
               >
                 {/* Icons */}
-                <Sun className={`w-3 h-3 text-shamock-green-500 transition-all duration-300 ${theme === 'light' ? 'opacity-100 scale-100' : 'opacity-0 scale-0'
+                <Sun className={`w-3 h-3 text-shamock-green-500 transition-all duration-300 ${currentTheme === 'light' ? 'opacity-100 scale-100' : 'opacity-0 scale-0'
                   }`} />
-                <Moon className={`absolute w-3 h-3 text-shamock-green-900 transition-all duration-300 ${theme === 'dark' ? 'opacity-100 scale-100' : 'opacity-0 scale-0'
+                <Moon className={`absolute w-3 h-3 text-shamock-green-900 transition-all duration-300 ${currentTheme === 'dark' ? 'opacity-100 scale-100' : 'opacity-0 scale-0'
                   }`} />
               </div>
             </button>
