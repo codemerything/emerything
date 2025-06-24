@@ -1,4 +1,4 @@
-import { ExternalLink } from "lucide-react"
+import { ExternalLink, PenLine, FolderGit2, FileText } from "lucide-react"
 import Link from "next/link"
 
 export default function About() {
@@ -9,43 +9,41 @@ export default function About() {
         <div className="space-y-8">
           {/* About Me Section */}
           <section className="space-y-4">
-            <h1 className="text-xl font-bold text-gray-900 dark:text-gray-100">About me</h1>
-            <div className="prose prose-lg dark:prose-invert max-w-none">
+            <h1 className="text-lg font-semibold text-gray-900 dark:text-gray-100">About me</h1>
+            <div className=" max-w-none">
               <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-                I'm Emery. You may also know me as <a href="https://www.x.com/zimaab" className="italic">Zima</a>, currently a Design
+                I'm Emery. You may also know me as <a href="https://www.x.com/zimaab" className="italic underline hover:text-shamock-green-500 dark:hover:text-shamock-green-400 transition-colors">Zima</a>, currently a Design
                 Engineer at{" "}
-                <Link href="https://juxstudios.com" className="text-shamock-green-500 underline hover:no-underline">
+                <Link href="https://juxstudios.com" className="underline hover:text-shamock-green-500 dark:hover:text-shamock-green-400 transition-colors">
                   Jux Studios
                 </Link>
                 . Previously I worked as an Assistant Creative Director at{" "}
-                <Link href="www.instagram.com/dnmgdx" className="text-shamock-green-500 underline hover:no-underline">
+                <Link href="www.instagram.com/dnmgdx" className="underline hover:text-shamock-green-500 dark:hover:text-shamock-green-400 transition-colors">
                   DNMGD Apparel
                 </Link>{" "}
                 and{" "}
-                <Link href="#" className="text-shamock-green-500 underline hover:no-underline">
+                <Link href="#" className="underline hover:text-shamock-green-500 dark:hover:text-shamock-green-400 transition-colors">
                   Another Company
                 </Link>
                 . A few links to explore:
               </p>
               <ul className="space-y-2 mt-6">
                 <li>
-                  <Link href="/writing" className="text-shamock-green-500 underline hover:no-underline">
+                  <Link href="/writing" className="inline-flex items-center gap-2 underline hover:text-shamock-green-500 dark:hover:text-shamock-green-400 transition-colors">
+                    <PenLine className="h-4 w-4" />
                     Writing
                   </Link>
                 </li>
                 <li>
-                  <Link href="/projects" className="text-shamock-green-500 underline hover:no-underline">
+                  <Link href="/projects" className="inline-flex items-center gap-2 underline hover:text-shamock-green-500 dark:hover:text-shamock-green-400 transition-colors">
+                    <FolderGit2 className="h-4 w-4" />
                     Projects
                   </Link>
                 </li>
                 <li>
-                  <a href="/Emmanuel_Edem_Resume.md" download className="text-shamock-green-500 underline hover:no-underline">
-                    Download Resume <span className="text-xs">(MD)</span>
-                  </a>
-                </li>
-                <li>
-                  <Link href="#" className="text-shamock-green-500 underline hover:no-underline">
-                    What I'm doing now
+                  <Link href="/resume" className="inline-flex items-center gap-2 underline hover:text-shamock-green-500 dark:hover:text-shamock-green-400 transition-colors">
+                    <FileText className="h-4 w-4" />
+                    Resume
                   </Link>
                 </li>
               </ul>
@@ -55,12 +53,12 @@ export default function About() {
           {/* Elsewhere Section */}
           <section className="space-y-4">
             <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100">Elsewhere</h2>
-            <div className="prose dark:prose-invert max-w-none">
+            <div className=" max-w-none">
               <p className="text-gray-600 dark:text-gray-300">
                 You can{" "}
                 <Link
                   href="mailto:your@email.com"
-                  className="text-shamock-green-500 underline hover:no-underline"
+                  className="underline hover:text-shamock-green-500 dark:hover:text-shamock-green-400 transition-colors"
                 >
                   receive updates from me via email
                 </Link>{" "}
@@ -69,7 +67,7 @@ export default function About() {
               <ul className="space-y-2 mt-6">
                 <li>
                   RSS feed:{" "}
-                  <Link href="/feed.xml" className="text-shamock-green-500 underline hover:no-underline">
+                  <Link href="/feed.xml" className="underline hover:text-shamock-green-500 dark:hover:text-shamock-green-400 transition-colors">
                     yourname.com/feed
                   </Link>
                 </li>
@@ -77,7 +75,7 @@ export default function About() {
                   Twitter:{" "}
                   <Link
                     href="https://twitter.com/zimaab"
-                    className="text-shamock-green-500 underline hover:no-underline"
+                    className="underline hover:text-shamock-green-500 dark:hover:text-shamock-green-400 transition-colors"
                   >
                     @zimaab
                     <ExternalLink className="inline w-3 h-3 ml-1" />
@@ -87,7 +85,7 @@ export default function About() {
                   GitHub:{" "}
                   <Link
                     href="https://github.com/codemerything"
-                    className="text-shamock-green-500 underline hover:no-underline"
+                    className="underline hover:text-shamock-green-500 dark:hover:text-shamock-green-400 transition-colors"
                   >
                     @codemerything
                     <ExternalLink className="inline w-3 h-3 ml-1" />
@@ -97,7 +95,7 @@ export default function About() {
                   LinkedIn:{" "}
                   <Link
                     href="https://linkedin.com/in/mmnldm"
-                    className="text-shamock-green-500 underline hover:no-underline"
+                    className="underline hover:text-shamock-green-500 dark:hover:text-shamock-green-400 transition-colors"
                   >
                     @mmnldm
                     <ExternalLink className="inline w-3 h-3 ml-1" />
@@ -107,7 +105,7 @@ export default function About() {
                   Farcaster:{" "}
                   <Link
                     href="https://farcaster.xyz/@zimaa"
-                    className="text-shamock-green-500 underline hover:no-underline"
+                    className="underline hover:text-shamock-green-500 dark:hover:text-shamock-green-400 transition-colors"
                   >
                     @zimaa
                     <ExternalLink className="inline w-3 h-3 ml-1" />
@@ -117,7 +115,7 @@ export default function About() {
                   Behance:{" "}
                   <Link
                     href="https://www.behance.net/mmnldm"
-                    className="text-shamock-green-500 underline hover:no-underline"
+                    className="underline hover:text-shamock-green-500 dark:hover:text-shamock-green-400 transition-colors"
                   >
                     @mmnldm
                   </Link>
@@ -129,9 +127,9 @@ export default function About() {
           {/* What I'm doing now Section */}
           <section className="space-y-4">
             <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100">What I'm doing now</h2>
-            <div className="prose dark:prose-invert max-w-none">
+            <div className=" max-w-none">
               <p className="text-gray-600 dark:text-gray-300">
-                I'm currently working on a new project called <a href="https://chromewebstore.google.com/detail/degen-cost/kmpmnllmhildaflkcfdjenkiiggddcco" className="text-shamock-green-500 underline hover:no-underline" target="_blank">
+                I'm currently working on a new project called <a href="https://chromewebstore.google.com/detail/degen-cost/kmpmnllmhildaflkcfdjenkiiggddcco" className="underline hover:text-shamock-green-500 dark:hover:text-shamock-green-400 transition-colors" target="_blank">
                   Degen Cost
                 </a>. It's an extension that helps converts fiat to crypto and it was inspired by the trading culture in web3 and I thought a little tool to help put things in perspective.
               </p>
