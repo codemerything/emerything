@@ -7,6 +7,25 @@ import { Header } from "@/components/header"
 export const metadata: Metadata = {
   title: "Emery",
   description: "Design Engineer",
+  openGraph: {
+    title: "Emery - Design Engineer",
+    description: "Personal portfolio and blog of Emery, a Design Engineer",
+    type: "website",
+    images: [
+      {
+        url: "/icon.svg",
+        width: 1200,
+        height: 630,
+        alt: "Emery Logo"
+      }
+    ]
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Emery - Design Engineer",
+    description: "Personal portfolio and blog of Emery, a Design Engineer",
+    images: ["/icon.svg"]
+  },
   icons: {
     icon: [
       {
