@@ -18,7 +18,7 @@ export default function ResumePage() {
                             size="sm"
                             className="text-smoky-black-700 hover:text-shamock-green-700 dark:text-misty-rose-300 dark:hover:text-shamock-green-300 hover:bg-misty-rose-100 dark:hover:bg-smoky-black-800 border border-smoky-black-700 dark:border-smoky-black-800"
                         >
-                            <a href="/Emmanuel_Edem_Resume.md" download className="inline-flex items-center">
+                            <a href="/E EDEM.pdf" download className="inline-flex items-center">
                                 <Download className="mr-2 h-4 w-4" />
                                 Download Resume
                             </a>
