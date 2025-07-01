@@ -10,6 +10,7 @@ import { getRecentMovie } from "@/lib/tmdb"
 import { getMovieQuote } from "@/lib/movieQuotes"
 import { getRecentProjects } from "@/lib/contentful"
 import { getCurrentlyReading } from "@/lib/books"
+import { SpinningSpotify } from "@/components/spinning-spotify"
 
 type BaseConsumingItem = {
   type: "music" | "movie" | "book";
@@ -197,11 +198,26 @@ export default async function Portfolio() {
           <div className="grid md:grid-cols-2 gap-4">
             {currentlyConsuming.map((item, index) => {
               if (!item) return null;
+
+              // Special case for Spotify/music items
+              if (item.type === "music") {
+                return (
+                  <SpinningSpotify
+                    key={index}
+                    isCurrentlyPlaying={item.status === "Currently playing"}
+                    title={item.title}
+                    artist={item.author}
+                    url={item.url}
+                    albumImage={item.albumImage}
+                  />
+                );
+              }
+
+              // Default rendering for other items (movies, books)
               const image =
-                item.type === "music" ? item.albumImage :
-                  item.type === "movie" ? item.posterImage :
-                    item.type === "book" ? item.coverImage :
-                      undefined;
+                item.type === "movie" ? item.posterImage :
+                  item.type === "book" ? item.coverImage :
+                    undefined;
 
               return (
                 <div
