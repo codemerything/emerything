@@ -2,74 +2,64 @@
 
 import { Moon, Sun } from "lucide-react"
 import { useTheme } from "next-themes"
-import { Button } from "@/components/ui/button"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
-import { useEffect, useState } from "react"
+import { useEffect, useState, useCallback } from "react"
 
 export function ThemeToggle() {
   const { theme, setTheme, systemTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
   const [showNotification, setShowNotification] = useState(false)
 
-  /**
-   * When the component mounts:
-   * 1. Set the mounted state to true
-   * 2. Check if theme preference exists, if not, set to system theme
-   * 3. Show notification for first-time visitors
-   */
+  // Ensure mounted is set after hydration
   useEffect(() => {
     setMounted(true)
 
-    // Check if user has a theme preference
-    const userTheme = localStorage.getItem('theme')
+    const userTheme = localStorage.getItem("theme")
     if (!userTheme) {
-      // If no preference, set to system theme
-      setTheme('system')
+      setTheme("system")
     }
 
-    // Check if this is the first visit
-    const hasVisited = localStorage.getItem('theme-notification-shown')
+    const hasVisited = localStorage.getItem("theme-notification-shown")
     if (!hasVisited) {
       setShowNotification(true)
-      localStorage.setItem('theme-notification-shown', 'true')
+      localStorage.setItem("theme-notification-shown", "true")
 
-      // Hide notification after 3 seconds
-      setTimeout(() => {
-        setShowNotification(false)
-      }, 3000)
+      setTimeout(() => setShowNotification(false), 3000)
     }
   }, [setTheme])
 
-  // Keyboard shortcut handler
+  // Theme toggling logic in one function
+  const toggleTheme = useCallback(() => {
+    const activeTheme = theme === "system" ? systemTheme : theme
+    setTheme(activeTheme === "light" ? "dark" : "light")
+  }, [theme, systemTheme, setTheme])
+
+  // Global keyboard shortcut: works even in production
   useEffect(() => {
     const handleKeyPress = (event: KeyboardEvent) => {
-      if (event.key.toLowerCase() === 'd' && !event.ctrlKey && !event.altKey && !event.metaKey) {
-        // Only trigger if not typing in an input field
+      if (
+        event.key.toLowerCase() === "d" &&
+        !event.ctrlKey &&
+        !event.altKey &&
+        !event.metaKey
+      ) {
         const target = event.target as HTMLElement
-        if (target.tagName !== 'INPUT' && target.tagName !== 'TEXTAREA' && !target.isContentEditable) {
+        if (
+          target.tagName !== "INPUT" &&
+          target.tagName !== "TEXTAREA" &&
+          !target.isContentEditable
+        ) {
           event.preventDefault()
-          setTheme(theme === "light" ? "dark" : "light")
+          if (mounted) toggleTheme()
         }
       }
     }
 
-    if (mounted) {
-      document.addEventListener('keydown', handleKeyPress)
-      return () => document.removeEventListener('keydown', handleKeyPress)
-    }
-  }, [mounted, theme, setTheme])
+    document.addEventListener("keydown", handleKeyPress)
+    return () => document.removeEventListener("keydown", handleKeyPress)
+  }, [mounted, toggleTheme])
 
-  const toggleTheme = () => {
-    // If currently using system theme, switch to explicit light/dark
-    if (theme === 'system') {
-      setTheme(systemTheme === 'dark' ? 'light' : 'dark')
-    } else {
-      setTheme(theme === "light" ? "dark" : "light")
-    }
-  }
-
-  // Get the actual theme (accounting for system theme)
-  const currentTheme = theme === 'system' ? systemTheme : theme
+  const currentTheme = theme === "system" ? systemTheme : theme
 
   if (!mounted) {
     return (
@@ -81,7 +71,6 @@ export function ThemeToggle() {
 
   return (
     <>
-      {/* Switch Toggle with Tooltip */}
       <TooltipProvider>
         <Tooltip>
           <TooltipTrigger asChild>
@@ -90,16 +79,22 @@ export function ThemeToggle() {
               className="relative w-14 h-7 border border-misty-rose-600 dark:border-smoky-black-800 rounded-full p-1 transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer"
               aria-label="Toggle theme"
             >
-              {/* Toggle Handle */}
               <div
-                className={`w-5 h-5 bg-white rounded-full shadow-md transition-all duration-300 flex items-center justify-center ${currentTheme === 'dark' ? 'translate-x-7' : 'translate-x-0'
+                className={`w-5 h-5 bg-white rounded-full shadow-md transition-all duration-300 flex items-center justify-center ${currentTheme === "dark" ? "translate-x-7" : "translate-x-0"
                   }`}
               >
-                {/* Icons */}
-                <Sun className={`w-3 h-3 text-shamock-green-500 transition-all duration-300 ${currentTheme === 'light' ? 'opacity-100 scale-100' : 'opacity-0 scale-0'
-                  }`} />
-                <Moon className={`absolute w-3 h-3 text-shamock-green-900 transition-all duration-300 ${currentTheme === 'dark' ? 'opacity-100 scale-100' : 'opacity-0 scale-0'
-                  }`} />
+                <Sun
+                  className={`w-3 h-3 text-shamock-green-500 transition-all duration-300 ${currentTheme === "light"
+                      ? "opacity-100 scale-100"
+                      : "opacity-0 scale-0"
+                    }`}
+                />
+                <Moon
+                  className={`absolute w-3 h-3 text-shamock-green-900 transition-all duration-300 ${currentTheme === "dark"
+                      ? "opacity-100 scale-100"
+                      : "opacity-0 scale-0"
+                    }`}
+                />
               </div>
             </button>
           </TooltipTrigger>
@@ -112,7 +107,6 @@ export function ThemeToggle() {
         </Tooltip>
       </TooltipProvider>
 
-      {/* Notification Popup */}
       {showNotification && (
         <div className="fixed top-4 right-4 z-50 bg-smoky-black-900 text-misty-rose-100 px-4 py-3 rounded-lg shadow-lg border border-smoky-black-700 animate-in slide-in-from-right-2 duration-300">
           <div className="flex items-center gap-2">
