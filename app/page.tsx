@@ -39,16 +39,7 @@ type BookItem = BaseConsumingItem & {
 
 type ConsumingItem = MusicItem | MovieItem | BookItem;
 
-async function getRecentWritings() {
-  const articles = await fetchSubstackArticles()
-  return articles.slice(0, 3).map(article => ({
-    title: article.title,
-    date: article.date,
-    formattedDate: new Date(article.date).toISOString().slice(0, 10),
-    excerpt: "", // Substack RSS feed doesn't include excerpts
-    slug: article.guid || article.link
-  }))
-}
+
 
 async function getCurrentlyConsuming() {
   const [track, movie, books] = await Promise.all([
@@ -60,8 +51,7 @@ async function getCurrentlyConsuming() {
 }
 
 export default async function Portfolio() {
-  const [recentWritings, consumingData, movieQuote, projects] = await Promise.all([
-    getRecentWritings(),
+  const [consumingData, movieQuote, projects] = await Promise.all([
     getCurrentlyConsuming(),
     getMovieQuote(),
     getRecentProjects()
@@ -163,34 +153,6 @@ export default async function Portfolio() {
         </div>
       </section >
 
-      {/* Recent Writing Section */}
-      <section className="max-w-4xl mx-auto px-6 py-6 border-t border-misty-rose-200 dark:border-smoky-black-700" >
-        <div className="space-y-6">
-          <div className="flex items-center justify-between">
-            <h3 className="text-xl font-semibold text-smoky-black-900 dark:text-misty-rose-100">Recent Writing</h3>
-            <Link
-              href="/writing"
-              className="text-smoky-black-600 dark:text-misty-rose-300 hover:text-shamock-green-700 dark:hover:text-shamock-green-300 hover:underline flex items-center gap-1 text-sm"
-            >
-              View all <ArrowRight className="w-3 h-3" />
-            </Link>
-          </div>
-          <div className="space-y-3">
-            {recentWritings.map((post, index) => (
-              <div key={index} className="flex items-start gap-6">
-                <time className="text-sm text-smoky-black-500 dark:text-misty-rose-400 font-mono min-w-[80px]">
-                  {post.formattedDate}
-                </time>
-                <Link href={`${post.slug}`} className="block group">
-                  <h4 className="font-semibold text-smoky-black-900 dark:text-misty-rose-100 group-hover:text-shamock-green-700 dark:group-hover:text-shamock-green-300 transition-colors">
-                    {post.title}
-                  </h4>
-                </Link>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section >
 
       {/* Currently Consuming Section */}
       <section className="max-w-4xl mx-auto px-6 py-12 border-t border-misty-rose-200 dark:border-smoky-black-700" >
