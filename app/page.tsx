@@ -3,6 +3,7 @@ import { Badge } from "@/components/ui/badge"
 import Image from "next/image"
 import Link from "next/link"
 import { LucideIcon } from "lucide-react"
+import { Analytics } from "@vercel/analytics/react"
 
 import { fetchSubstackArticles } from "@/lib/fetchSubstack"
 import { getSpotifyTrack } from "@/lib/spotify"
@@ -268,6 +269,7 @@ export default async function Portfolio() {
           </div>
         </div>
       </footer >
+      <Analytics />
     </div >
   )
 }
