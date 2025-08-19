@@ -73,10 +73,14 @@ export function Header() {
     <header className="border-misty-rose-200 dark:border-smoky-black-700 bg-misty-rose-50 dark:bg-smoky-black-950">
       <div className="max-w-4xl mx-auto px-4 py-3 mt-10 flex items-center justify-between">
         <Link href="/" className="text-lg text-smoky-black-900 dark:text-smoky-black-100 hover:text-shamock-green-700 dark:hover:text-shamock-green-300 transition-colors">
+<<<<<<< HEAD
           <motion.span >
             Emery
           </motion.span>  — Design Engineer
 
+=======
+          Emery — Software Engineer
+>>>>>>> 9b60b864e79d4e85a63cd80c3df2f9e86d799330
         </Link>
 
         {/* Desktop Navigation */}
