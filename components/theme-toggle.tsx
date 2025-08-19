@@ -8,13 +8,13 @@ import { useEffect, useState, useCallback } from "react"
 export function ThemeToggle() {
   const { theme, setTheme, systemTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
-  const [showNotification, setShowNotification] = useState(false)
+  const [showNotification, setShowNotification] = useState(true)
 
   // Ensure mounted is set after hydration
   useEffect(() => {
     setMounted(true)
 
-    const userTheme = localStorage.getItem("theme")
+    const userTheme = localStorage.getItem("theme-preference")
     if (!userTheme) {
       setTheme("system")
     }
@@ -31,7 +31,11 @@ export function ThemeToggle() {
   // Theme toggling logic in one function
   const toggleTheme = useCallback(() => {
     const activeTheme = theme === "system" ? systemTheme : theme
-    setTheme(activeTheme === "light" ? "dark" : "light")
+    if (activeTheme === "light") {
+      setTheme("dark")
+    } else {
+      setTheme("light")
+    }
   }, [theme, systemTheme, setTheme])
 
   // Global keyboard shortcut: works even in production
@@ -59,7 +63,6 @@ export function ThemeToggle() {
     return () => document.removeEventListener("keydown", handleKeyPress)
   }, [mounted, toggleTheme])
 
-  const currentTheme = theme === "system" ? systemTheme : theme
 
   if (!mounted) {
     return (
@@ -80,19 +83,19 @@ export function ThemeToggle() {
               aria-label="Toggle theme"
             >
               <div
-                className={`w-5 h-5 bg-white rounded-full shadow-md transition-all duration-300 flex items-center justify-center ${currentTheme === "dark" ? "translate-x-7" : "translate-x-0"
+                className={`w-5 h-5 bg-white rounded-full shadow-md transition-all duration-300 flex items-center justify-center ${(theme === "dark" || (theme === "system" && systemTheme === "dark")) ? "translate-x-7" : "translate-x-0"
                   }`}
               >
                 <Sun
-                  className={`w-3 h-3 text-shamock-green-500 transition-all duration-300 ${currentTheme === "light"
-                      ? "opacity-100 scale-100"
-                      : "opacity-0 scale-0"
+                  className={`w-3 h-3 text-shamock-green-500 transition-all duration-300 ${(theme === "light" || (theme === "system" && systemTheme === "light"))
+                    ? "opacity-100 scale-100"
+                    : "opacity-0 scale-0"
                     }`}
                 />
                 <Moon
-                  className={`absolute w-3 h-3 text-shamock-green-900 transition-all duration-300 ${currentTheme === "dark"
-                      ? "opacity-100 scale-100"
-                      : "opacity-0 scale-0"
+                  className={`absolute w-3 h-3 text-shamock-green-900 transition-all duration-300 ${(theme === "dark" || (theme === "system" && systemTheme === "dark"))
+                    ? "opacity-100 scale-100"
+                    : "opacity-0 scale-0"
                     }`}
                 />
               </div>
