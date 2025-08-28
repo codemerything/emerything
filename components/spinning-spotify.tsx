@@ -76,56 +76,6 @@ export function SpinningSpotify({ isCurrentlyPlaying, title, artist, url, albumI
                     <p className="text-sm text-smoky-black-700 dark:text-misty-rose-300">{artist}</p>
                 </div>
             </div>
-
-            {/* Right side - Spinning Spotify effect */}
-            <div className="relative flex-shrink-0">
-                {/* Spinning text container */}
-                <div className="relative w-20 h-20 flex items-center justify-center">
-                    {/* Circular text path */}
-                    <div
-                        className="absolute inset-0"
-                        style={{
-                            animation: 'spin 10s linear infinite reverse',
-                            transformOrigin: 'center'
-                        }}
-                    >
-                        <svg
-                            viewBox="0 0 80 80"
-                            className="w-full h-full"
-                        >
-                            <defs>
-                                <path
-                                    id="spotify-textPath"
-                                    d="M 40 10 A 30 30 0 1 1 39.99 10"
-                                    fill="none"
-                                />
-                            </defs>
-                            <text className={`text-[8px] fill-current font-medium ${isCurrentlyPlaying
-                                ? "text-shamock-green-500 dark:text-shamock-green-400"
-                                : "text-smoky-black-600 dark:text-misty-rose-400"
-                                }`}>
-                                <textPath href="#spotify-textPath" startOffset="0%">
-                                    {status.toUpperCase()} • {status.toUpperCase()} •
-                                </textPath>
-                            </text>
-                        </svg>
-                    </div>
-
-                    {/* Center Spotify icon */}
-                    <div
-                        className="relative z-10"
-                        style={{ animation: 'spin 8s linear infinite' }}
-                    >
-                        <Image
-                            src="/spotify.svg"
-                            alt="Spotify"
-                            width={24}
-                            height={24}
-                            className={`${spotifyIconColor} transition-all duration-300`}
-                        />
-                    </div>
-                </div>
-            </div>
         </div>
     )
 } 
