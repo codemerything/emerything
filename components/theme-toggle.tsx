@@ -13,18 +13,24 @@ export function ThemeToggle() {
   // Ensure mounted is set after hydration
   useEffect(() => {
     setMounted(true)
-
+    console.log("showNotification state:", showNotification)
     const userTheme = localStorage.getItem("theme-preference")
     if (!userTheme) {
       setTheme("system")
     }
 
     const hasVisited = localStorage.getItem("theme-notification-shown")
+
     if (!hasVisited) {
       setShowNotification(true)
       localStorage.setItem("theme-notification-shown", "true")
-
-      setTimeout(() => setShowNotification(false), 3000)
+      setTimeout(() => {
+        console.log("about to hide notification")
+        setShowNotification(false)
+        console.log("called setShowNotification(false)")
+      }, 3000)
+    } else {
+      setShowNotification(false)
     }
   }, [setTheme])
 
