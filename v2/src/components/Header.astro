@@ -1,0 +1,29 @@
+---
+import "../styles/global.css";
+import HeaderLink from "../components/HeaderLink.astro";
+const { image } = Astro.props;
+---
+
+<header class="max-w-[98vw] w-[1205px] mx-auto">
+    {
+        image && (
+            <a href={Astro.url.pathname}>
+                <img
+                    src={image}
+                    alt="Page image"
+                    class="mt-5 w-full max-h-[215px] object-cover block mx-auto rounded-lg"
+                />
+            </a>
+        )
+    }
+    <nav
+        class="flex justify-between text-black font-alte-haas mt-4 py-2 border-2 rounded-lg border-black"
+    >
+        <HeaderLink href="/" class="border-2">home</HeaderLink>
+        <HeaderLink href="/blog">blog</HeaderLink>
+        <HeaderLink href="/art">art</HeaderLink>
+        <HeaderLink href="/now">now</HeaderLink>
+        <HeaderLink href="/guestbook">guest boook</HeaderLink>
+        <HeaderLink href="/about">about me</HeaderLink>
+    </nav>
+</header>

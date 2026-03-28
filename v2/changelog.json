@@ -1,0 +1,19 @@
+[
+  {
+    "title": "Layout Overhaul & Tailwind",
+    "date": "March 28, 2026",
+    "changes": [
+      "Moved to TailwindCSS standard 70/30 grid system",
+      "Extracted Welcome elements into semantic HTML",
+      "Shifted blurry Astro background into global layout"
+    ]
+  },
+  {
+    "title": "Initial Project Setup",
+    "date": "March 20, 2026",
+    "changes": [
+      "Astro base initialization",
+      "Setup standard routing and basic typography"
+    ]
+  }
+]

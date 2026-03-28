@@ -1,0 +1,38 @@
+---
+import changelogData from "../../changelog.json";
+---
+
+<div class="p-6 backdrop-blur-sm rounded-xl shadow-sm border border-gray-100">
+    <h3 class="text-xl font-bold mb-6 text-gray-900 border-b pb-2">
+        Changelog
+    </h3>
+
+    <div class="space-y-6">
+        {
+            changelogData.map((entry: any, index: number) => (
+                <div
+                    class={`relative pl-4 border-l-2 ${
+                        index === 0 ? "border-blue-200" : "border-gray-200"
+                    }`}
+                >
+                    <div
+                        class={`absolute w-2.5 h-2.5 rounded-full -left-[5.5px] top-1.5 shadow-[0_0_0_2px_#fff] ${
+                            index === 0 ? "bg-blue-500" : "bg-gray-300"
+                        }`}
+                    />
+                    <h4 class="text-base font-semibold text-gray-900">
+                        {entry.title}
+                    </h4>
+                    <time class="text-xs font-medium text-gray-500 block mb-2 uppercase tracking-wide">
+                        {entry.date}
+                    </time>
+                    <ul class="list-disc list-inside text-sm text-gray-600 space-y-1">
+                        {entry.changes.map((change: string) => (
+                            <li>{change}</li>
+                        ))}
+                    </ul>
+                </div>
+            ))
+        }
+    </div>
+</div>

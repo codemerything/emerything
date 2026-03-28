@@ -1,0 +1,33 @@
+---
+import Header from "../components/Header.astro";
+const { image } = Astro.props;
+import { Font } from "astro:assets";
+import "../styles/global.css";
+import background from "../assets/background.svg";
+---
+
+<!doctype html>
+<html lang="en" class="h-full w-full">
+    <head>
+        <Font cssVariable="--font-alte-haas-grotesk" />
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <link rel="icon" href="/favicon.ico" />
+        <meta name="generator" content={Astro.generator} />
+        <title>Astro Basics</title>
+    </head>
+
+    <body class="h-full w-full m-0 font-alte-haas">
+        <img src={background.src} alt="" fetchpriority="high" class="fixed top-0 left-0 w-full h-full -z-10 blur-[100px]" />
+        <Header image={image} />
+        <div class="grid grid-cols-[7fr_3fr] gap-4 max-w-[98vw] w-[1205px] mx-auto">
+            <main>
+                <slot />
+            </main>
+            <aside>
+                <slot name="sidebar" />
+            </aside>
+        </div>
+    </body>
+</html>

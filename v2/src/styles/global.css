@@ -1,0 +1,5 @@
+@import "tailwindcss";
+
+@theme inline {
+    --font-alte-haas: var(--font-alte-haas-grotesk);
+}
