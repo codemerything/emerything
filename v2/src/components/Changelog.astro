@@ -1,5 +1,13 @@
 ---
 import changelogData from "../../changelog.json";
+
+const parseMarkdownLinks = (text: string) => {
+    // Converts [text](url) to an HTML anchor tag styled securely with Tailwind
+    return text.replace(
+        /\[([^\]]+)\]\(([^)]+)\)/g,
+        '<a href="$2" class="text-blue-500 hover:text-blue-700 underline" target="_blank" rel="noopener noreferrer">$1</a>'
+    );
+};
 ---
 
 <div class="p-6 backdrop-blur-sm rounded-xl shadow-sm border border-gray-100">
@@ -28,7 +36,7 @@ import changelogData from "../../changelog.json";
                     </time>
                     <ul class="list-disc list-inside text-sm text-gray-600 space-y-1">
                         {entry.changes.map((change: string) => (
-                            <li>{change}</li>
+                            <li set:html={parseMarkdownLinks(change)} />
                         ))}
                     </ul>
                 </div>

@@ -1,19 +1,10 @@
 [
-  {
-    "title": "Layout Overhaul & Tailwind",
-    "date": "March 28, 2026",
-    "changes": [
-      "Moved to TailwindCSS standard 70/30 grid system",
-      "Extracted Welcome elements into semantic HTML",
-      "Shifted blurry Astro background into global layout"
-    ]
-  },
-  {
-    "title": "Initial Project Setup",
-    "date": "March 20, 2026",
-    "changes": [
-      "Astro base initialization",
-      "Setup standard routing and basic typography"
-    ]
-  }
+    {
+        "title": "Website Redesign",
+        "date": "March 28, 2026",
+        "changes": [
+            "Take a look at the [previous design](https://emerything-333svj98y-mmnldms-projects.vercel.app/)",
+            "Moved to Astro for more simplicity"
+        ]
+    }
 ]
