@@ -17,13 +17,24 @@ const { image } = Astro.props;
         )
     }
     <nav
-        class="flex justify-between text-black font-alte-haas mt-4 py-2 border-2 rounded-lg border-black"
+        class="flex justify-between text-black font-alte-haas mt-4 px-2 py-2 border rounded-sm border-black"
     >
-        <HeaderLink href="/" class="border-2">home</HeaderLink>
-        <HeaderLink href="/blog">blog</HeaderLink>
-        <HeaderLink href="/art">art</HeaderLink>
-        <HeaderLink href="/now">now</HeaderLink>
-        <HeaderLink href="/guestbook">guest boook</HeaderLink>
-        <HeaderLink href="/about">about me</HeaderLink>
+        <HeaderLink href="/" class="border-1 px-2 rounded-sm">home</HeaderLink>
+        <HeaderLink href="/blog" class="border-1 px-2 rounded-sm"
+            >blog</HeaderLink
+        >
+        <HeaderLink href="/projects" class="border-1 px-2 rounded-sm"
+            >projects</HeaderLink
+        >
+        <HeaderLink href="/art" class="border-1 px-2 rounded-sm">art</HeaderLink
+        >
+        <HeaderLink href="/now" class="border-1 px-2 rounded-sm">now</HeaderLink
+        >
+        <HeaderLink href="/guestbook" class="border-1 px-2 rounded-sm"
+            >guest boook</HeaderLink
+        >
+        <HeaderLink href="/about" class="border-1 px-2 rounded-sm"
+            >about me</HeaderLink
+        >
     </nav>
 </header>
