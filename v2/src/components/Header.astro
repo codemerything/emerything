@@ -1,6 +1,17 @@
 ---
 import "../styles/global.css";
 import HeaderLink from "../components/HeaderLink.astro";
+import bSvg from "../assets/b.svg";
+import tSvg from "../assets/t.svg";
+import wSvg from "../assets/w.svg";
+import gSvg from "../assets/g.svg";
+import jSvg from "../assets/j.svg";
+import oSvg from "../assets/o.svg";
+import nSvg from "../assets/n.svg";
+import mSvg from "../assets/m.svg";
+import hSvg from "../assets/h.svg";
+import MSvg from "../assets/M.svg";
+
 const { image } = Astro.props;
 ---
 
@@ -17,24 +28,58 @@ const { image } = Astro.props;
         )
     }
     <nav
-        class="flex justify-between text-black font-alte-haas mt-4 px-2 py-2 border rounded-sm border-black"
+        class="flex justify-between text-black bg-white font-alte-haas font-medium mt-4 px-2 py-2 border rounded-sm border-black"
     >
-        <HeaderLink href="/" class="border-1 px-2 rounded-sm">home</HeaderLink>
-        <HeaderLink href="/blog" class="border-1 px-2 rounded-sm"
-            >blog</HeaderLink
+        <HeaderLink href="/" class="px-2 rounded-sm"
+            >ho<img
+                src={MSvg.src}
+                alt="m"
+                class="h-[0.9em] w-auto inline-block -mt-[0.1em] mr-[0.5px]"
+            />e</HeaderLink
         >
-        <HeaderLink href="/projects" class="border-1 px-2 rounded-sm"
-            >projects</HeaderLink
+        <HeaderLink href="/blog" class="px-2 rounded-sm flex items-center"
+            ><img
+                src={bSvg.src}
+                alt="b"
+                class="h-[0.9em] w-auto inline-block -mt-[0.1em] mr-[0.5px]"
+            />log</HeaderLink
         >
-        <HeaderLink href="/art" class="border-1 px-2 rounded-sm">art</HeaderLink
+
+        <HeaderLink href="/projects" class="px-2 rounded-sm"
+            >pro<img
+                src={jSvg.src}
+                alt="j"
+                class="h-[0.9em] w-auto inline-block -mt-[0.1em] ml-[0.5px]"
+            />ects</HeaderLink
         >
-        <HeaderLink href="/now" class="border-1 px-2 rounded-sm">now</HeaderLink
+
+        <HeaderLink href="/art" class="px-2 rounded-sm"
+            >ar<img
+                src={tSvg.src}
+                alt="t"
+                class="h-[0.9em] w-auto inline-block -mt-[0.2em] ml-[0.5px]"
+            />
+        </HeaderLink>
+        <HeaderLink href="/now" class="px-2 rounded-sm"
+            ><img
+                src={nSvg.src}
+                alt="n"
+                class="h-[0.9em] w-auto inline-block -mt-[0.1em] mr-[0.5px]"
+            />ow
+        </HeaderLink>
+        <HeaderLink href="/guestbook" class="px-2 rounded-sm"
+            ><img
+                src={gSvg.src}
+                alt="g"
+                class="h-[0.9em] w-auto inline-block -mt-[0.2em] ml-[0.5px]"
+            />uest book</HeaderLink
         >
-        <HeaderLink href="/guestbook" class="border-1 px-2 rounded-sm"
-            >guest boook</HeaderLink
-        >
-        <HeaderLink href="/about" class="border-1 px-2 rounded-sm"
-            >about me</HeaderLink
+        <HeaderLink href="/about" class="px-2 rounded-sm"
+            >ab<img
+                src={oSvg.src}
+                alt="o"
+                class="h-[0.9em] w-auto inline-block -mt-[0.1em] ml-[0.5px]"
+            />ut me</HeaderLink
         >
     </nav>
 </header>
